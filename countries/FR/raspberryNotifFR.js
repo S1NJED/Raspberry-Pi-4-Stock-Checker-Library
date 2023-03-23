@@ -19,7 +19,6 @@ module.exports = class RaspberryPiNotif {
                 status_code: res.status,
                 url: url
             }
-
         }
     
         this.stores = {
@@ -196,5 +195,35 @@ module.exports = class RaspberryPiNotif {
             }
         }
     }
+
+    async rpiCheckerAllStores(gb=1) {
+        let data = [
+            await this.stores.kubi(gb),
+            await this.stores.lektorStore(gb),
+            await this.stores.mcHobby(gb),
+            await this.stores.reichelt(gb),
+            await this.stores.yadom(gb),
+        ];
+
+        return data;
+
+    }
+
+    async rpi1GbChecker() {
+        return await this.rpiCheckerAllStores(1);
+    }
+
+    async rpi2GbChecker() {
+        return await this.rpiCheckerAllStores(2);
+    }
+
+    async rpi4GbChecker() {
+        return await this.rpiCheckerAllStores(4);
+    }
+    
+    async rpi8GbChecker() {
+        return await this.rpiCheckerAllStores(8);
+    }
+    
 }
 

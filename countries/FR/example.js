@@ -8,11 +8,12 @@ const discordWebhookUrl = ""; // Discord webhook URL à ajouter
 
 const red = "\x1b[31m";
 const green = "\x1b[32m";
-const messageState = false;
+let messageState = false;
 
 setInterval(async () => {
 
     const objs = await kubi();
+    
     for (let obj of objs) {
         
         if (obj["stock"]) {
