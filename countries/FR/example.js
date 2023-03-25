@@ -1,40 +1,26 @@
 const RaspberryPiNotif = require('./raspberryNotifFR');
 
-const stockChecker = new RaspberryPiNotif();
-const stores = stockChecker.stores;
-const kubi = stores.kubi;
-const delay = 2000;
-const discordWebhookUrl = ""; // Discord webhook URL à ajouter
+(async () => {
+    const notifier = new RaspberryPiNotif();
+    const discordWebhookUrl = ""; // <-- Your discord webhook URL go here
+    const delayHours = 6; // Hours to wait, only change the delay here
+    const delay = delayHours * (3600 * 100);
 
-const red = "\x1b[31m";
-const green = "\x1b[32m";
-let messageState = false;
+    setInterval(async () => {
+        let objects = await notifier.check8GB();
 
-setInterval(async () => {
-
-    const objs = await kubi();
-    
-    for (let obj of objs) {
-        
-        if (obj["stock"]) {
-            console.log(green + "- STOCK [ " + obj["url"] + " ]");
-            
-            if (!messageState) {
-                messageState = true;
+        for (let object of objects) {
+            if (object["stock"]) { // stock === true
                 fetch(discordWebhookUrl, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({content: "STOCK DISPONIBLE (" + obj["url"] + ")"})
+                    body: JSON.stringify({content: "@here STOCK AVAILABLE ! (" + object["url"] + ")"})
                 })
-             }
-        
+            }
         }
-        else {
-            console.log(red + "- HORS STOCK [ " + obj["url"] + " ]");
-        }
-    }
 
-}, delay);
+    }, delay);
 
+})(); // Self invoked function
