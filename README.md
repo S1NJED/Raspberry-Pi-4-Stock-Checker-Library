@@ -6,9 +6,26 @@ This library **scrap** the *public data* from official stores of many countries 
   
   - 🇫🇷 France
   - More soon ... (🏴󠁧󠁢󠁥󠁮󠁧󠁿, 🇺🇸, ...)
+ 
 
-![Raspberry_Pi-PI4_MODEL_B_1GB-30152779-01-removebg-preview](https://user-images.githubusercontent.com/74248071/226735240-1ccc1ef0-9717-4d6d-a622-31db73d5d39f.png)
 
-Prequesites : - Install [Node.js](https://nodejs.org/en/download)
+<h3>Prerequisite</h3>
+<p>Install <a href="https://nodejs.org/en/download">Node.js</a>
 
-Checking official stores from the **[Raspberry Pi Website](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/)**
+<h2>Documentation</h2>
+
+<ul>
+  <li><kbd>RaspberryPiNotif</kbd> (class)</li>
+  <ul>
+    <li><kbd>storesNames</kbd> (property) - Array of all available stores names</li>
+    <li><kbd>checkStock</kbd> (method) - Check stock from a single store</li>
+    <li><kbd>check1GB</kbd> (method) - Check stock for Raspberry Pi 1 GB from every availables stores</li>
+    <li><kbd>check2GB</kbd> (method) - Check stock for Raspberry Pi 2 GB from every availables stores</li>
+    <li><kbd>check4GB</kbd> (method) - Check stock for Raspberry Pi 4 GB from every availables stores</li>
+    <li><kbd>check8GB</kbd> (method) - Check stock for Raspberry Pi 8 GB from every availables stores</li>
+  </ul>
+</ul>
+
+
+<hr>
+Checking official stores from the <a href="https://www.raspberrypi.com/products/raspberry-pi-4-model-b/">Raspberry Pi Website</a> 
