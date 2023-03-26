@@ -126,12 +126,6 @@ module.exports = class RaspberryPiNotif {
         return ret;
     }
 
-    testing() {
-        for (let obj of Object.entries(this.#stores)) {
-            console.log(obj[0]);
-        }
-    }
-
     /**
      * Check stock for the Raspberry Pi 4 X GB from every available stores. 
      * @param {number} gb GB of the raspberry PI you want to check (1, 2, 4 OR 8) 
