@@ -1,15 +1,22 @@
 const RaspberryPiNotif = require('./raspberryNotifFR');
 
+async function timer(ms) {
+    return new Promise(function(resolve) {
+        setTimeout(resolve, ms);
+    })
+}
+
 (async () => {
     const notifier = new RaspberryPiNotif();
     const discordWebhookUrl = ""; // <-- Your discord webhook URL go here
-    const delayHours = 6; // Hours to wait, only change the delay here
-    const delay = delayHours * (3600 * 100);
+    let hour = 1;
+    let delay = hour * (3600 * 1000); // Time in ms, here 1 hour (3600000 ms)
 
-    setInterval(async () => {
-        let objects = await notifier.check8GB();
+    while (true) {
+        let objects = await notifier.checkStockGB(8);
 
         for (let object of objects) {
+            console.log(object);
             if (object["stock"]) { // stock === true
                 fetch(discordWebhookUrl, {
                     method: "POST",
@@ -21,6 +28,9 @@ const RaspberryPiNotif = require('./raspberryNotifFR');
             }
         }
 
-    }, delay);
+        await timer(delay);
+    }
+    
+    
 
 })(); // Self invoked function
