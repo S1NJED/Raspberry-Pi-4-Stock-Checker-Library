@@ -104,18 +104,18 @@ module.exports = class RaspberryPiNotif {
      * @returns An array of objects that contains the *state* of the stock, the *http status code* and the *url*
      */
     async checkStock(storeName, gb=0, delay=500) {
-        if (!this.stores[storeName]) {
+        if (!this.#stores[storeName]) {
             throw new Error("Bad Argument: You must enter a store name, use the getStoresNames()")
         }
 
-        let currentStore = this.stores[storeName];
+        let currentStore = this.#stores[storeName];
         let words = currentStore["words"];
         let htmlPath = currentStore["htmlPath"];
         let ret = [];
         
         if (gb) {
             let url = currentStore["urls"][gb];
-            return await this.#requestWebsite(url, htmlPath, words, gb, storeName);
+            return [await this.#requestWebsite(url, htmlPath, words, gb, storeName)];
         }
 
         for (let [ram_size, url] of Object.entries(currentStore["urls"])) {
