@@ -1,1 +1,1 @@
-npm i cheerio
+npm init -y & npm i cheerio
