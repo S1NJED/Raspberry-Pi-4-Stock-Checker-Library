@@ -73,7 +73,7 @@ module.exports = class RaspberryPiNotif {
     #timer = ms => new Promise(res => setTimeout(res, ms));
 
     // PRIVATE
-    async #requestWebsite(url, htmlPath, words) {
+    async #requestWebsite(url, htmlPath, words, ramSize, storeName) {
         const res = await fetch(url);
         const data = await res.text();
         const $ = cheerio.load(data);
@@ -82,6 +82,8 @@ module.exports = class RaspberryPiNotif {
         return {
             stock: res.status < 400 ? !words.some(v => stockStatus.includes(v)) : false,
             status_code: res.status,
+            ramSize: ramSize,
+            storeName: storeName,
             url: url
         }
     }
@@ -113,15 +115,21 @@ module.exports = class RaspberryPiNotif {
         
         if (gb) {
             let url = currentStore["urls"][gb];
-            return await this.#requestWebsite(url, htmlPath, words);
+            return await this.#requestWebsite(url, htmlPath, words, gb, storeName);
         }
 
-        for (let [key, url] of Object.entries(currentStore["urls"])) {
-            ret.push(await this.#requestWebsite(url, htmlPath, words));
+        for (let [ram_size, url] of Object.entries(currentStore["urls"])) {
+            ret.push(await this.#requestWebsite(url, htmlPath, words, ram_size, storeName));
             await this.#timer(delay);
         }
 
         return ret;
+    }
+
+    testing() {
+        for (let obj of Object.entries(this.#stores)) {
+            console.log(obj[0]);
+        }
     }
 
     /**
@@ -133,11 +141,12 @@ module.exports = class RaspberryPiNotif {
         try {
             let ret = [];
             for (let obj of Object.entries(this.#stores)) {
+                let storeName = obj[0];
                 let url = obj[1]["urls"][gb];
                 let htmlPath = obj[1]["htmlPath"];
                 let words = obj[1]["words"];
     
-                ret.push(await this.#requestWebsite(url, htmlPath, words));
+                ret.push(await this.#requestWebsite(url, htmlPath, words, gb, storeName));
                 await this.#timer(250);
             }
             return ret;
