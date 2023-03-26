@@ -10,7 +10,7 @@ This library **scrap** the *public data* from official stores of many countries 
 
 
 <h3>Prerequisite</h3>
-<p>Install <a href="https://nodejs.org/en/download">Node.js</a>
+<p>Install <a href="https://nodejs.org/en/download" target="_blank">Node.js</a>
 
 <h2>Documentation</h2>
 
@@ -35,4 +35,4 @@ This library **scrap** the *public data* from official stores of many countries 
 
 
 <hr>
-Checking official stores from the <a href="https://www.raspberrypi.com/products/raspberry-pi-4-model-b/">Raspberry Pi Website</a> 
+Checking official stores from the <a href="https://www.raspberrypi.com/products/raspberry-pi-4-model-b/" target="_blank">Raspberry Pi Website</a> 
