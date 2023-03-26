@@ -103,7 +103,7 @@ module.exports = class RaspberryPiNotif {
      */
     async checkStock(storeName, gb=0, delay=500) {
         if (!this.stores[storeName]) {
-            throw new Error("You must enter a store name, use the getStoresNames()")
+            throw new Error("Bad Argument: You must enter a store name, use the getStoresNames()")
         }
 
         let currentStore = this.stores[storeName];
@@ -124,51 +124,26 @@ module.exports = class RaspberryPiNotif {
         return ret;
     }
 
-    // PRIVATE
-    async #checkXGB(gb=1) {
-        let ret = [];
-
-        for (let obj of Object.entries(this.#stores)) {
-            let url = obj[1]["urls"][gb];
-            let htmlPath = obj[1]["htmlPath"];
-            let words = obj[1]["words"];
-
-            ret.push(await this.#requestWebsite(url, htmlPath, words));
-            await this.#timer(250);
+    /**
+     * Check stock for the Raspberry Pi 4 X GB from every available stores. 
+     * @param {number} gb GB of the raspberry PI you want to check (1, 2, 4 OR 8) 
+     * @returns Array of objects that contains information about the stock state 
+     */
+    async checkStockGB(gb=0) {
+        try {
+            let ret = [];
+            for (let obj of Object.entries(this.#stores)) {
+                let url = obj[1]["urls"][gb];
+                let htmlPath = obj[1]["htmlPath"];
+                let words = obj[1]["words"];
+    
+                ret.push(await this.#requestWebsite(url, htmlPath, words));
+                await this.#timer(250);
+            }
+            return ret;
         }
-        return ret;
-    }
-
-    /**
-     * **Check** stock for `Raspberry Pi 1 GB` from *every availables stores*
-     * @returns Array of objects
-     */
-    async check1GB() {
-        return await this.#checkXGB(1);
-    }
-
-    /**
-     * **Check** stock for `Raspberry Pi 2 GB` from *every availables stores*
-     * @returns Array of objects
-     */
-    async check2GB() {
-        return await this.#checkXGB(2);
-    }
-
-    /**
-     * **Check** stock for `Raspberry Pi 4 GB` from *every availables stores*
-     * @returns Array of objects
-     */
-    async check4GB() {
-        return await this.#checkXGB(4);
-    }
-
-    /**
-     * **Check** stock for `Raspberry Pi 8 GB` from *every availables stores*
-     * @returns Array of objects
-     */
-    async check8GB() {
-        return await this.#checkXGB(8);
+        catch(err) {console.error("Bad Argument: GB parameter must be equal to 1, 2, 4 OR 8");}
+        
     }
 
 }
