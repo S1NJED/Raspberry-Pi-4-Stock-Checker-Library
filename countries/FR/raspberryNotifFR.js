@@ -14,7 +14,6 @@ module.exports = class RaspberryPiNotif {
         this.#stores = {
             "kubi": {
                 "urls": {
-                    1: "https://www.kubii.fr/les-cartes-raspberry-pi/2770-nouveau-raspberry-pi-4-modele-b-1gb-kubii-0765756931168.html?src=raspberrypi",
                     2: "https://www.kubii.fr/cartes-raspberry-pi/2771-nouveau-raspberry-pi-4-modele-b-2gb-3272496308794.html?src=raspberrypi",
                     4: "https://www.kubii.fr/cartes-raspberry-pi/2772-nouveau-raspberry-pi-4-modele-b-4gb-kubii-0765756931182.html?src=raspberrypi",
                     8: "https://www.kubii.fr/cartes-raspberry-pi/2955-raspberry-pi-4-modele-b-8gb-3272496309050.html?src=raspberrypi"
@@ -25,7 +24,6 @@ module.exports = class RaspberryPiNotif {
 
             "lektorStore": {
                 "urls": {
-                    1: "https://www.elektor.fr/raspberry-pi-4-b-1-gb-ram?src=raspberrypi",
                     2: "https://www.elektor.fr/raspberry-pi-4-b-2-gb-ram?src=raspberrypi",
                     4: "https://www.elektor.fr/raspberry-pi-4-b-4-gb-ram?src=raspberrypi", // 404 not found 
                     8: "https://www.elektor.fr/raspberry-pi-4-b-8-gb-ram?src=raspberrypi",
@@ -36,7 +34,6 @@ module.exports = class RaspberryPiNotif {
 
             "reichelt": {
                 "urls": {
-                    1: "https://www.reichelt.de/FR/FR/raspberry-pi-4-b-4x-1-5-ghz-1-gb-ram-wlan-bt-rasp-pi-4-b-1gb-p259874.html?r=1&src=raspberrypi",
                     2: "https://www.reichelt.de/FR/FR/raspberry-pi-4-b-4x-1-5-ghz-2-gb-ram-wlan-bt-rasp-pi-4-b-2gb-p259919.html?r=1&src=raspberrypi",
                     4: "https://www.reichelt.de/FR/FR/raspberry-pi-4-b-4x-1-5-ghz-4-gb-ram-wlan-bt-rasp-pi-4-b-4gb-p259920.html?r=1&src=raspberrypi",
                     8: "https://www.reichelt.com/fr/fr/raspberry-pi-4-b-4x-1-5-ghz-8-gb-ram-wlan-bt-rasp-pi-4-b-8gb-p276923.html?CCOUNTRY=443&LANGUAGE=fr&utm_source=display&utm_medium=rsp-foundation&src=raspberrypi&&r=1"
@@ -47,7 +44,6 @@ module.exports = class RaspberryPiNotif {
 
             "yadom": {
                 "urls": {
-                    1: "https://yadom.fr/raspberry-pi-4-model-b-1gb.html?src=raspberrypi",
                     2: "https://yadom.fr/raspberry-pi-4-model-b-2gb.html?src=raspberrypi",
                     4: "https://yadom.fr/raspberry-pi-4-model-b-4gb.html?src=raspberrypi",
                     8: "https://yadom.fr/nouveau-raspberry-pi-4-modele-b-version-8gb.html?src=raspberrypi"
@@ -58,7 +54,6 @@ module.exports = class RaspberryPiNotif {
 
             "mcHobby": {
                 "urls": {
-                    1: "https://shop.mchobby.be/fr/raspberry-pi-4/1608-raspberry-pi-4-1-go-de-ram-dispo-en-stock--3232100016088.html?src=raspberrypi",
                     2: "https://shop.mchobby.be/fr/raspberry-pi-4/1609-raspberry-pi-4-2-go-de-ram-dispo-en-stock--3232100016095.html?src=raspberrypi",
                     4: "https://shop.mchobby.be/fr/raspberry-pi-4/1610-raspberry-pi-4-4-go-de-ram-dispo-en-stock--3232100016101.html?src=raspberrypi",
                     8: "https://shop.mchobby.be/fr/raspberry-pi-4/1858-raspberry-pi-4-8-go-de-ram-dispo-en-stock--3232100018587.html?src=raspberrypi"
@@ -99,7 +94,7 @@ module.exports = class RaspberryPiNotif {
     /**
      * Check stock from a single store.
      * @param {string} storeName Store name that you want to **check** the stock of. **Get** stores names from the storeNames *property* 
-     * @param {number} gb OPTIONAL - *Type* of the Raspberry Pi in GB (1, 2, 4 or 8)
+     * @param {number} gb OPTIONAL - *Type* of the Raspberry Pi in GB (2, 4 or 8)
      * @param {number} delay OPTIONAL (by default 500) - Delay in ms between the request when no gb parameter given.
      * @returns An array of objects that contains the *state* of the stock, the *http status code* and the *url*
      */
@@ -107,7 +102,7 @@ module.exports = class RaspberryPiNotif {
         if (!this.#stores[storeName]) {
             throw new Error("Bad Argument: You must enter a store name, use the getStoresNames()")
         }
-
+        
         let currentStore = this.#stores[storeName];
         let words = currentStore["words"];
         let htmlPath = currentStore["htmlPath"];
@@ -128,7 +123,7 @@ module.exports = class RaspberryPiNotif {
 
     /**
      * Check stock for the Raspberry Pi 4 X GB from every available stores. 
-     * @param {number} gb GB of the raspberry PI you want to check (1, 2, 4 OR 8) 
+     * @param {number} gb GB of the raspberry PI you want to check (2, 4 OR 8) 
      * @returns Array of objects that contains information about the stock state 
      */
     async checkStockGB(gb=0) {
@@ -145,7 +140,7 @@ module.exports = class RaspberryPiNotif {
             }
             return ret;
         }
-        catch(err) {console.error("Bad Argument: GB parameter must be equal to 1, 2, 4 OR 8");}
+        catch(err) {console.error("Bad Argument: GB parameter must be equal to 2, 4 OR 8");}
         
     }
 
