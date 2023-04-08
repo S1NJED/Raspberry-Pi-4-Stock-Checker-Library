@@ -21,7 +21,7 @@ This library **scrap** the *public data* from official stores of many countries 
     <li><kbd>checkStock</kbd> (method) - Check stock from a single store</li>
       <ul>
         <li><kbd>storeName</kbd> (string) - Name of the store to check his stock</li>
-        <li><kbd>gb</kbd> (number) - OPTIONAL, Ram size of the raspberry Pi (1, 2, 4 OR 8), if no gb given it will get information stock for every ram sizes</li>
+        <li><kbd>gb</kbd> (number) - OPTIONAL, Ram size of the raspberry Pi (2, 4 OR 8), if no gb given it will get information stock for every ram sizes</li>
         <li><kbd>delay</kbd> (number) - OPTIONAL, by default 500 ms, delay in ms between each requests</li>
         <li>@return - Array of objects that contains informations about the stock</li>    
       </ul>
